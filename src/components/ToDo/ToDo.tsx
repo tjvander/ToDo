@@ -35,6 +35,13 @@ export function ToDo() {
     setNewItemDescription('');
   }
 
+  const handleEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter' && newItemDescription.trim().length!==0)  {
+     addItem();
+    }
+  };
+
+
   useEffect(() => {
     localStorage.setItem('toDoItems', JSON.stringify(toDoItems));
   }, [toDoItems]);
@@ -61,8 +68,8 @@ export function ToDo() {
         }
         </List>
         <Group>
-        <TextInput placeholder="Add To Do" value={newItemDescription} onChange={(e) => setNewItemDescription(e.target.value)}/>
-        <Button size="add" disabled={newItemDescription.trim().length==0} onClick={() => addItem()}>Add</Button>
+        <TextInput placeholder="Add To Do" value={newItemDescription} onChange={(e) => setNewItemDescription(e.target.value)} onKeyDown={handleEnter}/>
+        <Button size="add" disabled={newItemDescription.trim().length===0} onClick={() => addItem()}>Add</Button>
         </Group>
         </Stack>
 
